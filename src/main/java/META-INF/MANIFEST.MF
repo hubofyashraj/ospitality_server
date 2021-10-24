@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Main-Class: com.ospitality.server.Launcher
+Class-Path: javafx-fxml-16.jar mysql-connector-java-8.0.25.jar javafx-co
+ ntrols-16.jar javafx-base-16-win.jar javafx-controls-16-win.jar javafx-
+ graphics-16-win.jar javafx-base-16.jar javafx-graphics-16.jar javafx-fx
+ ml-16-win.jar
+
