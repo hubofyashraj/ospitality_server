@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Arrays;
 
 public class admSuspendAccount extends Thread{
     Socket socket;
@@ -29,6 +30,7 @@ public class admSuspendAccount extends Thread{
             out = new DataOutputStream(socket.getOutputStream());
 
             String[] data = din.readUTF().split("\\./");
+            System.out.println(Arrays.toString(data));
             Statement st = common.getCon().createStatement();
 
             if(data[0].equals("B")){

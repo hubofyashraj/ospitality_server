@@ -86,8 +86,8 @@ public class addUserHandler extends Thread{
 
         try {
             Statement st = common.getCon().createStatement();
-            ResultSet rs = st.executeQuery("SELECT NumericID FROM HMS ORDER BY NumericID; ");
-            while(rs.next()){
+            ResultSet rs = st.executeQuery("SELECT NumericID FROM HMS ORDER BY NumericID DESC LIMIT 1; ");
+            if(rs.next()){
                 id = rs.getInt("NumericID");
             }
             id+=1;

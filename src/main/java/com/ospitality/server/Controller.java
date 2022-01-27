@@ -9,7 +9,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URISyntaxException;
@@ -81,15 +84,11 @@ public class Controller {
 
     public void callStopServer() {
         try {
-            acceptRequestsThread.flag=false;
-            if(common.getSs()!=null)
-                common.getSs().close();
 
-            ArrayList<Socket> list = common.getSocketList();
-
-            for (Socket socket : list) {
-                socket.close();
-            }
+            Socket socket = new Socket("localhost",5678);
+            DataOutputStream dout = new DataOutputStream(socket.getOutputStream());
+            dout.writeUTF("SERVER");
+            dout.writeUTF("KSN");
 
         } catch (IOException e) {
             e.printStackTrace();

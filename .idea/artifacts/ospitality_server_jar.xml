@@ -1,0 +1,21 @@
+<component name="ArtifactManager">
+  <artifact name="ospitality_server:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ospitality_server_jar</output-path>
+    <root id="root">
+      <element id="archive" name="ospitality_server.jar">
+        <element id="module-output" name="ospitality_server" />
+      </element>
+      <element id="library" level="project" name="Maven: mysql:mysql-connector-java:8.0.25" />
+      <element id="library" level="module" name="mysql-connector-java-8.0.25" module-name="ospitality_server" />
+      <element id="library" level="project" name="Maven: com.google.protobuf:protobuf-java:3.11.4" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-controls:17.0.2" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-controls:win:17.0.2" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-graphics:17.0.2" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-graphics:win:17.0.2" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-base:17.0.2" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-base:win:17.0.2" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-fxml:17.0.2" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-fxml:win:17.0.2" />
+    </root>
+  </artifact>
+</component>

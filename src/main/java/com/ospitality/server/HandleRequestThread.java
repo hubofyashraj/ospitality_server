@@ -10,7 +10,7 @@ import java.net.Socket;
 import java.net.SocketAddress;
 import java.net.SocketException;
 import java.time.LocalDateTime;
-
+import java.util.ArrayList;
 
 
 public class HandleRequestThread extends Thread {
@@ -26,16 +26,16 @@ public class HandleRequestThread extends Thread {
     @Override
     public void run() {
         super.run();
+        Controller c= common.getC();
+        c.logsArea.appendText("\n\nAwaiting Action ...");
 
         try {
             out = socket.getOutputStream();
             in = socket.getInputStream();
             DataInputStream din = new DataInputStream(in);
 
-            Controller c= common.getC();
 
             SocketAddress address = socket.getRemoteSocketAddress();
-
 
             String user = common.checkHash(address);
             if(user.equals("!!")){
@@ -44,10 +44,35 @@ public class HandleRequestThread extends Thread {
                 c.logsArea.appendText("\n\nConnection Request From : "+client);
                 user= common.checkHash(address);
             }
-            String requestType = din.readUTF();
+            String requestType;
+
+            try{
+                requestType = din.readUTF();
+            }catch (SocketException e){
+                if(e.getLocalizedMessage().equals("Connection reset")){
+                    c.logsArea.appendText("\n\nSocket Connection Reset From Client "+socket.getRemoteSocketAddress());
+                }
+                socket.close();
+                return;
+            }
 
             c.logsArea.appendText(String.format("\n\n%s\nClient Address : %s\tUser : %s\tRequest : %s", LocalDateTime.now(), address, user, requestType));
             new Logger(String.format("\n\n%s\nClient Address : %s\tUser : %s\tRequest : %s", LocalDateTime.now(), address, user, requestType)).start();
+
+
+            if(requestType.equals("KSN")){
+                acceptRequestsThread.flag=false;
+                if(common.getSs()!=null)
+                    common.getSs().close();
+
+                ArrayList<Socket> list = common.getSocketList();
+
+                for (Socket socket : list) {
+                    socket.close();
+                }
+                socket.close();
+                return;
+            }
 
             if(requestType.endsWith("PP")){
                 Thread PP = new profilePicHandler(requestType,socket);
@@ -195,16 +220,18 @@ public class HandleRequestThread extends Thread {
                         break;
                     case "LOGOUT":
                         socket.close();
+                        c.logsArea.appendText("\n\nAwaiting Action ...");
+
                         break;
                 }
             }else if (requestType.startsWith("M")){
                 switch (requestType) {
-                    case "MGMD":
-
-                        Thread MGMD = new getMedicineDataHandler(socket);
-                        MGMD.setName("MGMD");
-                        MGMD.start();
-                        break;
+//                    case "MGMD":
+//
+//                        Thread MGMD = new getMedicineDataHandler(socket);
+//                        MGMD.setName("MGMD");
+//                        MGMD.start();
+//                        break;
                     case "MSP":
 
                         Thread MSP = new mdcBillInitHandler(socket);

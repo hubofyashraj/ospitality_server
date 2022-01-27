@@ -36,7 +36,7 @@ public class patientAndScansInitHandler extends Thread{
             boolean t = rs.next();
             dataOutputStream.writeBoolean(t||t1);
             dataOutputStream.flush();
-
+            System.out.println(t1+" "+t);
             if(t1){
                 do{
                     dataOutputStream.writeUTF(rs1.getString(1)+"./"+rs1.getString(2)+"./UV");

@@ -74,9 +74,9 @@ public class registerNewPatientHandler extends Thread{
         int ID=1000;
         try{
             Statement stmt = common.getCon().createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT numeric_id FROM patients");
-            while(rs.next()){
-                ID=Math.max(rs.getInt("numeric_id"), ID);
+            ResultSet rs = stmt.executeQuery("SELECT numeric_id FROM patients ORDER BY numeric_id DESC LIMIT 1");
+            if(rs.next()){
+                ID=rs.getInt("numeric_id");
             }
         }catch (Exception e){
             e.printStackTrace();

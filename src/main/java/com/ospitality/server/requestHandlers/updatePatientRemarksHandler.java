@@ -39,8 +39,7 @@ public class updatePatientRemarksHandler extends Thread{
                     "date LIKE '%s' AND patient LIKE '%s' AND department LIKE '%s'",
                     LocalDate.now(), arr[0], arr[1]));
 
-            st.executeUpdate(String.format("UPDATE patients SET remarks='%s',last_diagnosed='%s %s' WHERE patient_id LIKE '%s'", arr[2], LocalDate.now(),
-                    DateTimeFormatter.ofPattern("HH:mm:ss").format(LocalTime.now()), arr[0]));
+            st.executeUpdate("UPDATE patients SET remarks=CONCAT('" + arr[2] + "\t',(SELECT CURDATE()),'\n'),last_diagnosed='" + LocalDate.now() + " " + DateTimeFormatter.ofPattern("HH:mm:ss").format(LocalTime.now()) + "' WHERE patient_id LIKE '" + arr[0] + "'");
         } catch (IOException | SQLException e) {
             e.printStackTrace();
         }
