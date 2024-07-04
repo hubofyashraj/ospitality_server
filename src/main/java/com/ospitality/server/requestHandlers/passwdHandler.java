@@ -28,10 +28,10 @@ public class passwdHandler extends Thread{
             String[] arr = test.split("\\./");
 
             Statement st = common.getCon().createStatement();
-            ResultSet rs = st.executeQuery(String.format("SELECT PassWord FROM HMS WHERE UserID LIKE '%s'", arr[0]));
+            ResultSet rs = st.executeQuery(String.format("SELECT PASSWORD FROM HMS WHERE USERID LIKE '%s'", arr[0]));
             if(rs.next()){
                 if(rs.getString(1).equals(arr[1])){
-                    st.executeUpdate("UPDATE HMS SET PassWord='"+arr[2]+"' WHERE UserID LIKE '"+arr[0]+"'");
+                    st.executeUpdate("UPDATE HMS SET PASSWORD='"+arr[2]+"' WHERE USERID LIKE '"+arr[0]+"'");
                     dout.writeBoolean(true);
                 }else{
                     dout.writeBoolean(false);

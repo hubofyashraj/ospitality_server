@@ -28,7 +28,7 @@ public class addUserInitializationHandler extends Thread{
         try {
             Statement stmt = common.getCon().createStatement();
             Statement st = common.getCon().createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT userName,UserID,Role FROM HMS WHERE UserID NOT IN (SELECT iD FROM suspended_staff)");
+            ResultSet rs = stmt.executeQuery("SELECT USERNAME,USERID,ROLE FROM HMS WHERE USERID NOT IN (SELECT ID FROM SUSPENDED_STAFF)");
 
             DataOutputStream dout = new DataOutputStream(socket.getOutputStream());
 
@@ -41,7 +41,7 @@ public class addUserInitializationHandler extends Thread{
                 do {
                     uid=rs.getString(2);
                     dout.writeUTF(rs.getString(1) + "./" + uid + "./" + rs.getString(3)+"./U");
-                    ResultSet rs1 = st.executeQuery("SELECT * FROM profile_pics WHERE user_id LIKE '"+uid+"'");
+                    ResultSet rs1 = st.executeQuery("SELECT * FROM PROFILE_PICS WHERE USER_ID LIKE '"+uid+"'");
                     if(rs1.next()){
                         if(rs1.getBoolean(2)){
                             dout.writeBoolean(true);
@@ -70,13 +70,13 @@ public class addUserInitializationHandler extends Thread{
                 } while (rs.next());
             }
 
-            rs = stmt.executeQuery("SELECT userName,UserID,Role FROM hms WHERE UserID IN (SELECT iD FROM suspended_staff)");
+            rs = stmt.executeQuery("SELECT USERNAME,USERID,ROLE FROM HMS WHERE USERID IN (SELECT ID FROM SUSPENDED_STAFF)");
             if(rs.next()){
                 String uid="";
                 do{
                     uid = rs.getString(2);
                     dout.writeUTF(rs.getString(1) + "./" + uid + "./" + rs.getString(3)+"./B");
-                    ResultSet rs1 = st.executeQuery("SELECT * FROM profile_pics WHERE user_id LIKE '"+uid+"'");
+                    ResultSet rs1 = st.executeQuery("SELECT * FROM PROFILE_PICS WHERE USER_ID LIKE '"+uid+"'");
                     if(rs1.next()){
                         if(rs1.getBoolean(2)){
                             dout.writeBoolean(true);

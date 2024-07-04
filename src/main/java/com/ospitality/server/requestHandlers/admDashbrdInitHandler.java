@@ -23,7 +23,7 @@ public class admDashbrdInitHandler extends Thread{
             DataOutputStream dout = new DataOutputStream(socket.getOutputStream());
 
             Statement st = common.getCon().createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM visits");
+            ResultSet rs = st.executeQuery("SELECT * FROM VISITS");
 
             boolean flag = rs.next();
             dout.writeBoolean(flag);

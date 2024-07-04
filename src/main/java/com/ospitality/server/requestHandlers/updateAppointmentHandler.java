@@ -34,25 +34,25 @@ public class updateAppointmentHandler extends Thread{
             String newDate = new SimpleDateFormat("yyyy-MM-dd").format(new SimpleDateFormat("dd/MM/yyyy").parse(arr[1]));
             Statement st = common.getCon().createStatement();
             st.executeUpdate(
-                    String.format("UPDATE appointments SET department='%s',date='%s' WHERE patient like '%s' " +
-                                    "AND date like '%s' AND department like '%s'",
+                    String.format("UPDATE APPOINTMENTS SET DEPARTMENT='%s',DATE='%s' WHERE PATIENT LIKE '%s' " +
+                                    "AND DATE LIKE '%s' AND DEPARTMENT LIKE '%s'",
                             arr[0], newDate, arr[2], oldDate, arr[4]));
 
 //            LocalDate newDate = LocalDate.parse(arr[1], DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
-            ResultSet rs = st.executeQuery(String.format("SELECT * FROM everydayDetails WHERE date like '%s'",oldDate));
+            ResultSet rs = st.executeQuery(String.format("SELECT * FROM EVERYDAYDETAILS WHERE DATE LIKE '%s'",oldDate));
             if (rs.next()){
                 int appointmentsCount = rs.getInt(2);
                 appointmentsCount--;
-                st.executeUpdate(String.format("UPDATE everydayDetails SET totalAppointments='%d' WHERE date like '%s'",appointmentsCount,oldDate));
+                st.executeUpdate(String.format("UPDATE EVERYDAYDETAILS SET TOTALAPPOINTMENTS='%d' WHERE DATE LIKE '%s'",appointmentsCount,oldDate));
 
-                ResultSet rs1=st.executeQuery(String.format("SELECT * FROM everydayDetails WHERE date like '%s'",newDate));
+                ResultSet rs1=st.executeQuery(String.format("SELECT * FROM EVERYDAYDETAILS WHERE DATE LIKE '%s'",newDate));
                 if(rs1.next()){
                     appointmentsCount=rs1.getInt(2);
                     appointmentsCount++;
-                    st.executeUpdate(String.format("UPDATE everydayDetails SET totalAppointments='%d' WHERE date like '%s'",appointmentsCount,newDate));
+                    st.executeUpdate(String.format("UPDATE EVERYDAYDETAILS SET TOTALAPPOINTMENTS='%d' WHERE DATE LIKE '%s'",appointmentsCount,newDate));
                 }else{
-                    st.executeUpdate(String.format("INSERT INTO everydayDetails VALUES ('%s',1,0,0)", newDate));
+                    st.executeUpdate(String.format("INSERT INTO EVERYDAYDETAILS VALUES ('%s',1,0,0)", newDate));
                 }
             }
             dout.writeBoolean(true);

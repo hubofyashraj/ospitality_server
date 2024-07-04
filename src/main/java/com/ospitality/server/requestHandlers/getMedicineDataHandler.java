@@ -27,7 +27,7 @@ public class getMedicineDataHandler extends Thread{
             String med = din.readUTF();
 
             Statement st = common.getCon().createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM medicines WHERE `Medicine Name` LIKE '"+med+"'");
+            ResultSet rs = st.executeQuery("SELECT * FROM MEDICINES WHERE `MEDICINE NAME` LIKE '%s'".formatted(med));
             if(rs.next()){
                 String str = rs.getString(3)+"./"+rs.getString(6);
                 dout.writeUTF(str);

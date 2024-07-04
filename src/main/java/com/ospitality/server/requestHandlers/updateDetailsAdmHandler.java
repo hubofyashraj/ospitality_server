@@ -26,8 +26,8 @@ public class updateDetailsAdmHandler extends Thread{
             String test = din.readUTF();
             String[] arr = test.split("\\./");
 
-            String Query = String.format("UPDATE HMS set userName='%s',PassWord='%s',Role='%s',Address='%s'," +
-                            "gender='%s',mobileNumber=%s,workEmail='%s',Designation='%s' WHERE UserID='%s'",
+            String Query = String.format("UPDATE HMS SET USERNAME='%s',PASSWORD='%s',ROLE='%s',ADDRESS='%s'," +
+                            "GENDER='%s',MOBILENUMBER=%s,WORKEMAIL='%s',DESIGNATION='%s' WHERE USERID='%s'",
                     arr[0], arr[1], arr[2], arr[3], arr[4], arr[5], arr[6], arr[7], arr[8]);
 
             try (Statement st = common.getCon().createStatement()) {

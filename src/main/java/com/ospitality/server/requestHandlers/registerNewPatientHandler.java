@@ -34,7 +34,7 @@ public class registerNewPatientHandler extends Thread{
             int PatientNumeric_id = newPatientID();
             String patient_id = "Pat"+PatientNumeric_id;
 
-            String Query = String.format("INSERT INTO patients (name,age,dob,gender,numeric_id,last_diagnosed,patient_id)" +
+            String Query = String.format("INSERT INTO PATIENTS (NAME,AGE,DOB,GENDER,NUMERIC_ID,LAST_DIAGNOSED,PATIENT_ID)" +
                             " VALUES ('%s','%d','%s','%s','%d','%s %s','%s')", arr[0], Integer.parseInt(arr[1]), arr[2], arr[3], PatientNumeric_id,
                     arr[4], DateTimeFormatter.ofPattern("HH:mm:ss").format(LocalTime.now()), patient_id);
             try{
@@ -43,16 +43,16 @@ public class registerNewPatientHandler extends Thread{
 
                 System.out.println(PatientNumeric_id);
 
-                ResultSet rs = st.executeQuery(String.format("SELECT * FROM everydayDetails WHERE date like '%s'", LocalDate.now()));
+                ResultSet rs = st.executeQuery(String.format("SELECT * FROM EVERYDAYDETAILS WHERE DATE LIKE '%s'", LocalDate.now()));
 
 
                 int patCount;
                 if(rs.next()){
                     patCount = rs.getInt(3);
                     patCount++;
-                    st.executeUpdate(String.format("UPDATE everydayDetails SET newPatients='%d' WHERE date like '%s'", patCount, LocalDate.now()));
+                    st.executeUpdate(String.format("UPDATE EVERYDAYDETAILS SET NEWPATIENTS='%d' WHERE DATE LIKE '%s'", patCount, LocalDate.now()));
                 }else{
-                    st.executeUpdate(String.format("INSERT INTO everydayDetails VALUES ('%s',0,1,0)", LocalDate.now()));
+                    st.executeUpdate(String.format("INSERT INTO EVERYDAYDETAILS VALUES ('%s',0,1,0)", LocalDate.now()));
                 }
                 dout.writeBoolean(true);
                 dout.writeUTF(patient_id);
@@ -74,7 +74,7 @@ public class registerNewPatientHandler extends Thread{
         int ID=1000;
         try{
             Statement stmt = common.getCon().createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT numeric_id FROM patients ORDER BY numeric_id DESC LIMIT 1");
+            ResultSet rs = stmt.executeQuery("SELECT NUMERIC_ID FROM PATIENTS ORDER BY NUMERIC_ID DESC LIMIT 1");
             if(rs.next()){
                 ID=rs.getInt("numeric_id");
             }

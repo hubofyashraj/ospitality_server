@@ -41,33 +41,33 @@ public class addUserHandler extends Thread{
             String fullUID = "";
 
             switch (job) {
-                case "Doctor":
+                case "DOCTOR":
                     fullUID = "DOC" + uID;
                     break;
-                case "Admin":
+                case "ADMIN":
                     fullUID = "ADM" + uID;
                     break;
-                case "Receptionist":
+                case "RECEPTIONIST":
                     fullUID = "RCP" + uID;
                     break;
-                case "Lab Technician":
+                case "LAB TECHNICIAN":
                     fullUID = "LBT" + uID;
                     break;
-                case "Medical Storekeeper":
+                case "MEDICAL STOREKEEPER":
                     fullUID = "MDC" + uID;
                     break;
             }
 
-            String Query = String.format("INSERT INTO HMS (userName,UserID,NumericID,Role,personalEmail,PassWord,Joining) " +
+            String Query = String.format("INSERT INTO HMS (USERNAME,USERID,NUMERICID,ROLE,PERSONALEMAIL,PASSWORD,JOINING) " +
                     "VALUES ('%s','%s','%d','%s','%s','%s','%s')",
                     userName, fullUID, uID, job, emailAddress, pass, LocalDate.now());
-            if(job.equals("Doctor")) Query = String.format("INSERT INTO HMS (userName,UserID,NumericID,Role,personalEmail," +
-                    "PassWord,Joining,Designation) VALUES ('%s','%s','%d','%s','%s','%s','%s','%s')",
+            if(job.equals("Doctor")) Query = String.format("INSERT INTO HMS (USERNAME,USERID,NUMERICID,ROLE,PERSONALEMAIL," +
+                    "PASSWORD,JOINING,DESIGNATION) VALUES ('%s','%s','%d','%s','%s','%s','%s','%s')",
                     userName, fullUID, uID, job, emailAddress, pass, LocalDate.now(), dept);
 
             try (Statement st = common.getCon().createStatement()) {
                 st.executeUpdate(Query);
-                st.executeUpdate("INSERT INTO profile_pics VALUES('"+fullUID+"',0)");
+                st.executeUpdate("INSERT INTO PROFILE_PICS VALUES('"+fullUID+"',0)");
                 dOut.writeBoolean(true);
                 dOut.writeUTF(fullUID);
             }catch (SQLException e){
@@ -86,9 +86,9 @@ public class addUserHandler extends Thread{
 
         try {
             Statement st = common.getCon().createStatement();
-            ResultSet rs = st.executeQuery("SELECT NumericID FROM HMS ORDER BY NumericID DESC LIMIT 1; ");
+            ResultSet rs = st.executeQuery("SELECT NUMERICID FROM HMS ORDER BY NUMERICID DESC LIMIT 1; ");
             if(rs.next()){
-                id = rs.getInt("NumericID");
+                id = rs.getInt("NUMERICID");
             }
             id+=1;
 

@@ -31,8 +31,8 @@ public class docDashbrdInitHandler extends Thread{
 
             Statement st = common.getCon().createStatement();
             ResultSet rs = st.executeQuery(String.format(
-                    "SELECT * FROM appointments WHERE date like '%s' AND " +
-                            "department like '%s'", LocalDate.now(),str));
+                    "SELECT * FROM APPOINTMENTS WHERE DATE LIKE '%s' AND " +
+                            "DEPARTMENT LIKE '%s'", LocalDate.now(),str));
             int totalAppointment=0;
             int totalRemaining=0;
             boolean t = rs.next();

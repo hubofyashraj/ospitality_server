@@ -24,7 +24,7 @@ public class lbtGetTestsHandler extends Thread{
             DataInputStream din = new DataInputStream(socket.getInputStream());
 
             Statement st = common.getCon().createStatement();
-            ResultSet rs = st.executeQuery("SELECT patients.name,patients.patient_id,labtests.testName,labtests.assignmentDate,labtests.testDoneOn FROM patients INNER Join labtests ON patients.patient_id=labtests.patient WHERE labtests.assignmentDate LIKE (SELECT CURDATE())");
+            ResultSet rs = st.executeQuery("SELECT PATIENTS.NAME,PATIENTS.PATIENT_ID,LABTESTS.TESTNAME,LABTESTS.ASSIGNMENTDATE,LABTESTS.TESTDONEON FROM PATIENTS INNER JOIN LABTESTS ON PATIENTS.PATIENT_ID=LABTESTS.PATIENT WHERE LABTESTS.ASSIGNMENTDATE LIKE (SELECT CURDATE())");
             boolean t = rs.next();
             dout.writeBoolean(t);
             if(t){

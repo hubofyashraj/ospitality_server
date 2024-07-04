@@ -26,13 +26,13 @@ public class appointmentFetcherHandler extends Thread{
 
             String id = din.readUTF();
             Statement st = common.getCon().createStatement();
-            ResultSet rs = st.executeQuery("SELECT name FROM patients WHERE patient_id LIKE '"+id+"'");
+            ResultSet rs = st.executeQuery("SELECT NAME FROM PATIENTS WHERE PATIENT_ID LIKE '"+id+"'");
             boolean patientExist = rs.next();
             dout.writeBoolean(patientExist);
             if(patientExist){
                 dout.writeUTF(rs.getString(1));
                 rs.close();
-                rs = st.executeQuery("SELECT * FROM appointments WHERE patient='" + id + "'");
+                rs = st.executeQuery("SELECT * FROM APPOINTMENTS WHERE PATIENT='" + id + "'");
                 boolean flag = rs.next();
                 dout.writeBoolean(flag);
                 if(flag){

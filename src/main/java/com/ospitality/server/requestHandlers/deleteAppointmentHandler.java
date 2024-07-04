@@ -33,21 +33,21 @@ public class deleteAppointmentHandler extends Thread{
             try {
                 Statement st = common.getCon().createStatement();
                 st.executeUpdate(
-                        String.format("DELETE FROM appointments  WHERE patient like '%s' AND date like '%s' AND " +
-                                "department like '%s'", arr[0], date, arr[2])
+                        String.format("DELETE FROM APPOINTMENTS  WHERE PATIENT LIKE '%s' AND DATE LIKE '%s' AND " +
+                                "DEPARTMENT LIKE '%s'", arr[0], date, arr[2])
                 );
                 dout.writeBoolean(true);
 
 
                 ResultSet rs = st.executeQuery(
-                        String.format("SELECT * FROM everydayDetails WHERE date like '%s'",date)
+                        String.format("SELECT * FROM EVERYDAYDETAILS WHERE DATE LIKE '%s'",date)
                 );
 
                 if (rs.next()){
                     int appointmentsCount=rs.getInt(2);
                     appointmentsCount--;
                     st.executeUpdate(
-                            String.format("UPDATE everydayDetails SET totalAppointments='%d' WHERE date like '%s'",
+                            String.format("UPDATE EVERYDAYDETAILS SET TOTALAPPOINTMENTS='%d' WHERE DATE LIKE '%s'",
                                     appointmentsCount,date)
                     );
                     dout.writeBoolean(true);

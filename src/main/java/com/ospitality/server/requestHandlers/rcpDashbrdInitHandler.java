@@ -29,7 +29,7 @@ public class rcpDashbrdInitHandler extends Thread{
 
             try {
                 Statement st = con.createStatement();
-                ResultSet rs = st.executeQuery(String.format("select * from everydayDetails where date='%s'",LocalDate.now()));
+                ResultSet rs = st.executeQuery(String.format("SELECT * FROM EVERYDAYDETAILS WHERE DATE='%s'",LocalDate.now()));
 
                 boolean flag = rs.next();
                 dout.writeBoolean(flag);
@@ -43,7 +43,7 @@ public class rcpDashbrdInitHandler extends Thread{
                 }
 
 
-                rs = st.executeQuery("SELECT * FROM everydayDetails");
+                rs = st.executeQuery("SELECT * FROM EVERYDAYDETAILS");
                 flag=rs.next();
                 dout.writeBoolean(flag);
                 LocalDate lastDay = LocalDate.now();

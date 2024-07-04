@@ -27,14 +27,14 @@ public class mdcBillInitHandler extends Thread{
 
             Statement st = common.getCon().createStatement();
 
-            ResultSet rs = st.executeQuery("SELECT * FROM patients WHERE patient_id LIKE '"+id+"%' OR name LIKE '"+id+"%'");
+            ResultSet rs = st.executeQuery("SELECT * FROM PATIENTS WHERE PATIENT_ID LIKE '"+id+"%' OR NAME LIKE '"+id+"%'");
             boolean t = rs.next();
             dout.writeBoolean(t);
 
             if(t){
                 String str = "";
                 do{
-                    str+=rs.getString("name")+"__"+rs.getInt("age")+"./";
+                    str+=rs.getString("NAME")+"__"+rs.getInt("AGE")+"./";
                 }while(rs.next());
                 str=str.substring(0,str.length()-2);
                 dout.writeUTF(str);

@@ -26,7 +26,7 @@ public class assignLabtestHandler extends Thread{
             System.out.println(111);
 
             common.getCon().createStatement().executeUpdate(String.format(
-                    "INSERT INTO labtests (assignmentDate,patient,testName) VALUES ('%s','%s','%s')",
+                    "INSERT INTO LABTESTS (ASSIGNMENTDATE,PATIENT,TESTNAME) VALUES ('%s','%s','%s')",
                     LocalDate.now(), data.split("\\./")[0], data.split("\\./")[1])
             );
         } catch (IOException | SQLException e) {

@@ -34,10 +34,10 @@ public class admSuspendAccount extends Thread{
             Statement st = common.getCon().createStatement();
 
             if(data[0].equals("B")){
-                st.executeUpdate("INSERT INTO suspended_staff VALUES ('"+data[1]+"','"+data[2]+"',CURDATE())");
+                st.executeUpdate("INSERT INTO SUSPENDED_STAFF VALUES ('"+data[1]+"','"+data[2]+"',CURDATE())");
                 log="\n\nUser : "+data[1]+"\tAccount Blocked ";
             }else if(data[0].equals("UB")){
-                st.executeUpdate("DELETE FROM suspended_staff WHERE ID LIKE '"+data[1]+"'");
+                st.executeUpdate("DELETE FROM SUSPENDED_STAFF WHERE ID LIKE '"+data[1]+"'");
                 log="\n\nUser : "+data[1]+"\tAccount Unblocked ";
             }
 

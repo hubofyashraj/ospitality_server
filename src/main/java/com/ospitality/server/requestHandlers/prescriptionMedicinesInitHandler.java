@@ -28,7 +28,7 @@ public class prescriptionMedicinesInitHandler extends Thread{
 
             Statement st = common.getCon().createStatement();
 
-            ResultSet rs = st.executeQuery("SELECT * FROM medicines WHERE `Medicine Name` LIKE '"+s+"%'");
+            ResultSet rs = st.executeQuery("SELECT * FROM MEDICINES WHERE `Medicine Name` LIKE '"+s+"%'");
             if(rs.next()){
                 dout.writeBoolean(true);
                 String str = rs.getString("Medicine Name");

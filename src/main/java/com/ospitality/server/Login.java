@@ -124,159 +124,159 @@ public class Login {
 
     private void createScript() throws IOException, InterruptedException {
         String script = """
-            create database if not exists OSPITALITY;
-            use OSPITALITY;
-            create table if not exists everydaydetails
+            CREATE DATABASE IF NOT EXISTS OSPITALITY;
+            USE OSPITALITY;
+            CREATE TABLE IF NOT EXISTS EVERYDAYDETAILS
             (
-              date              date          not null,
-              totalAppointments int default 0 not null,
-              newPatients       int default 0 not null,
-              visitsToday       int default 0 not null,
-              constraint everydayDetails_pk
-                  unique (date)
+              DATE              DATE          NOT NULL,
+              TOTALAPPOINTMENTS INT DEFAULT 0 NOT NULL,
+              NEWPATIENTS       INT DEFAULT 0 NOT NULL,
+              VISITSTODAY       INT DEFAULT 0 NOT NULL,
+              CONSTRAINT EVERYDAYDETAILS_PK
+                  UNIQUE (DATE)
             );
           
-            create table if not exists hms
+            CREATE TABLE IF NOT EXISTS HMS
             (
-              userName        varchar(25)  default 'NULL' not null,
-              UserID          varchar(30)                 not null,
-              NumericID       int                         not null,
-              profileComplete tinyint(1)   default 0      not null,
-              PassWord        varchar(45)  default 'aa'   null,
-              gender          varchar(10)  default 'NULL' null,
-              Role            varchar(30)  default 'NULL' not null,
-              Designation     varchar(30)  default 'NULL' not null,
-              mobileNumber    bigint                      null,
-              workEmail       varchar(45)  default 'NULL' null,
-              Address         varchar(255) default 'NULL' null,
-              personalEmail   varchar(45)  default 'NULL' null,
-              Joining         varchar(15)  default 'NULL' not null,
-              constraint HMS_UserID_uindex
-                  unique (UserID)
+              USERNAME        VARCHAR(25)  DEFAULT 'NULL' NOT NULL,
+              USERID          VARCHAR(30)                 NOT NULL,
+              NUMERICID       INT                         NOT NULL,
+              PROFILECOMPLETE TINYINT(1)   DEFAULT 0      NOT NULL,
+              PASSWORD        VARCHAR(45)  DEFAULT 'AA'   NULL,
+              GENDER          VARCHAR(10)  DEFAULT 'NULL' NULL,
+              ROLE            VARCHAR(30)  DEFAULT 'NULL' NOT NULL,
+              DESIGNATION     VARCHAR(30)  DEFAULT 'NULL' NOT NULL,
+              MOBILENUMBER    BIGINT                      NULL,
+              WORKEMAIL       VARCHAR(45)  DEFAULT 'NULL' NULL,
+              ADDRESS         VARCHAR(255) DEFAULT 'NULL' NULL,
+              PERSONALEMAIL   VARCHAR(45)  DEFAULT 'NULL' NULL,
+              JOINING         VARCHAR(15)  DEFAULT 'NULL' NOT NULL,
+              CONSTRAINT HMS_USERID_UINDEX
+                  UNIQUE (USERID)
             );
           
-            create table if not exists doctors
+            CREATE TABLE IF NOT EXISTS DOCTORS
             (
-              id         varchar(10) not null,
-              department varchar(30) not null,
-              constraint doctors_department_uindex
-                  unique (department),
-              constraint doctors_id_uindex
-                  unique (id),
-              constraint doctors_HMS_UserID_fk
-                  foreign key (id) references hms (UserID)
+              ID         VARCHAR(10) NOT NULL,
+              DEPARTMENT VARCHAR(30) NOT NULL,
+              CONSTRAINT DOCTORS_DEPARTMENT_UINDEX
+                  UNIQUE (DEPARTMENT),
+              CONSTRAINT DOCTORS_ID_UINDEX
+                  UNIQUE (ID),
+              CONSTRAINT DOCTORS_HMS_USERID_FK
+                  FOREIGN KEY (ID) REFERENCES HMS (USERID)
             );
           
-            create table if not exists labtests
+            CREATE TABLE IF NOT EXISTS LABTESTS
             (
-              assignmentDate date         not null,
-              patient        varchar(10)  not null,
-              testName       varchar(255) not null,
-              testDoneOn     date         null
+              ASSIGNMENTDATE DATE         NOT NULL,
+              PATIENT        VARCHAR(10)  NOT NULL,
+              TESTNAME       VARCHAR(255) NOT NULL,
+              TESTDONEON     DATE         NULL
             );
           
-            create table if not exists medicines
+            CREATE TABLE IF NOT EXISTS MEDICINES
             (
-              `Medicine Name`       text null,
-              Prescription          text null,
-              `Type of Sell`        text null,
-              Manufacturer          text null,
-              Salt                  text null,
-              MRP                   text null,
-              Uses                  text null,
-              `Alternate Medicines` text null,
-              `Side Effects`        text null,
-              `How to Use`          text null,
-              `Chemical Class`      text null,
-              `Habit Forming`       text null,
-              `Therapeutic Class`   text null,
-              `Action Class`        text null
+              `MEDICINE NAME`       TEXT NULL,
+              PRESCRIPTION          TEXT NULL,
+              `TYPE OF SELL`        TEXT NULL,
+              MANUFACTURER          TEXT NULL,
+              SALT                  TEXT NULL,
+              MRP                   TEXT NULL,
+              USES                  TEXT NULL,
+              `ALTERNATE MEDICINES` TEXT NULL,
+              `SIDE EFFECTS`        TEXT NULL,
+              `HOW TO USE`          TEXT NULL,
+              `CHEMICAL CLASS`      TEXT NULL,
+              `HABIT FORMING`       TEXT NULL,
+              `THERAPEUTIC CLASS`   TEXT NULL,
+              `ACTION CLASS`        TEXT NULL
             );
           
-            create table if not exists passwordrequests
+            CREATE TABLE IF NOT EXISTS PASSWORDREQUESTS
             (
-              userID varchar(10) null,
-              constraint passwordRequests_HMS_UserID_fk
-                  foreign key (userID) references hms (UserID)
+              USERID VARCHAR(10) NULL,
+              CONSTRAINT PASSWORDREQUESTS_HMS_USERID_FK
+                  FOREIGN KEY (USERID) REFERENCES HMS (USERID)
             );
           
-            create table if not exists patients
+            CREATE TABLE IF NOT EXISTS PATIENTS
             (
-              name           text                          not null,
-              age            int                           not null,
-              dob            text                          not null,
-              gender         enum ('male', 'female')       not null,
-              last_diagnosed text                          null,
-              patient_id     varchar(10)                   not null,
-              numeric_id     int                           null,
-              remarks        longtext default 'no remarks' not null,
-              constraint patients_patient_id_uindex
-                  unique (patient_id)
+              NAME           TEXT                          NOT NULL,
+              AGE            INT                           NOT NULL,
+              DOB            TEXT                          NOT NULL,
+              GENDER         ENUM ('MALE', 'FEMALE')       NOT NULL,
+              LAST_DIAGNOSED TEXT                          NULL,
+              PATIENT_ID     VARCHAR(10)                   NOT NULL,
+              NUMERIC_ID     INT                           NULL,
+              REMARKS        LONGTEXT DEFAULT 'NO REMARKS' NOT NULL,
+              CONSTRAINT PATIENTS_PATIENT_ID_UINDEX
+                  UNIQUE (PATIENT_ID)
             );
           
-            create table if not exists appointments
+            CREATE TABLE IF NOT EXISTS APPOINTMENTS
             (
-              date       date                    not null,
-              patient    varchar(10)             not null,
-              department text                    not null,
-              gender     enum ('male', 'female') not null,
-              visited    tinyint(1) default 0    not null,
-              constraint appointments_patients_patient_id_fk
-                  foreign key (patient) references patients (patient_id)
+              DATE       DATE                    NOT NULL,
+              PATIENT    VARCHAR(10)             NOT NULL,
+              DEPARTMENT TEXT                    NOT NULL,
+              GENDER     ENUM ('MALE', 'FEMALE') NOT NULL,
+              VISITED    TINYINT(1) DEFAULT 0    NOT NULL,
+              CONSTRAINT APPOINTMENTS_PATIENTS_PATIENT_ID_FK
+                  FOREIGN KEY (PATIENT) REFERENCES PATIENTS (PATIENT_ID)
             );
           
-            create table if not exists profile_pics
+            CREATE TABLE IF NOT EXISTS PROFILE_PICS
             (
-              user_id     varchar(10)          not null,
-              is_uploaded tinyint(1) default 0 not null,
-              constraint profile_pics_user_id_uindex
-                  unique (user_id),
-              constraint profile_pics_HMS_UserID_fk
-                  foreign key (user_id) references hms (UserID)
+              USER_ID     VARCHAR(10)          NOT NULL,
+              IS_UPLOADED TINYINT(1) DEFAULT 0 NOT NULL,
+              CONSTRAINT PROFILE_PICS_USER_ID_UINDEX
+                  UNIQUE (USER_ID),
+              CONSTRAINT PROFILE_PICS_HMS_USERID_FK
+                  FOREIGN KEY (USER_ID) REFERENCES HMS (USERID)
             );
           
-            create table if not exists suspended_staff
+            CREATE TABLE IF NOT EXISTS SUSPENDED_STAFF
             (
-              ID                varchar(30)  not null,
-              suspension_reason varchar(255) null,
-              suspension_date   date         null,
-              constraint suspended_staff_ID_uindex
-                  unique (ID),
-              constraint suspended_staff_hms_UserID_fk
-                  foreign key (ID) references hms (UserID)
+              ID                VARCHAR(30)  NOT NULL,
+              SUSPENSION_REASON VARCHAR(255) NULL,
+              SUSPENSION_DATE   DATE         NULL,
+              CONSTRAINT SUSPENDED_STAFF_ID_UINDEX
+                  UNIQUE (ID),
+              CONSTRAINT SUSPENDED_STAFF_HMS_USERID_FK
+                  FOREIGN KEY (ID) REFERENCES HMS (USERID)
             );
           
-            create table if not exists visited
+            CREATE TABLE IF NOT EXISTS VISITED
             (
-              date       date        not null,
-              patient    varchar(10) not null,
-              department varchar(30) not null,
-              doctor     varchar(30) not null,
-              constraint visited_hms_UserID_fk
-                  foreign key (doctor) references hms (UserID),
-              constraint visited_patients_patient_id_fk
-                  foreign key (patient) references patients (patient_id)
+              DATE       DATE        NOT NULL,
+              PATIENT    VARCHAR(10) NOT NULL,
+              DEPARTMENT VARCHAR(30) NOT NULL,
+              DOCTOR     VARCHAR(30) NOT NULL,
+              CONSTRAINT VISITED_HMS_USERID_FK
+                  FOREIGN KEY (DOCTOR) REFERENCES HMS (USERID),
+              CONSTRAINT VISITED_PATIENTS_PATIENT_ID_FK
+                  FOREIGN KEY (PATIENT) REFERENCES PATIENTS (PATIENT_ID)
             );
           
-            create table if not exists visits
+            CREATE TABLE IF NOT EXISTS VISITS
             (
-              Date              date          null,
-              maleVisits        int default 0 null,
-              femaleVisits      int default 0 null,
-              patientAge1_10    int default 0 null,
-              `patientAge11-20` int default 0 null,
-              patientAge21_30   int default 0 null,
-              patientAge31_40   int default 0 null,
-              patientAge41_50   int default 0 null,
-              patientAge51_60   int default 0 null,
-              patientAge60Above int default 0 null,
-              constraint visits_everydayDetails_date_fk
-                  foreign key (Date) references everydaydetails (date)
+              DATE              DATE          NULL,
+              MALEVISITS        INT DEFAULT 0 NULL,
+              FEMALEVISITS      INT DEFAULT 0 NULL,
+              PATIENTAGE1_10    INT DEFAULT 0 NULL,
+              `PATIENTAGE11-20` INT DEFAULT 0 NULL,
+              PATIENTAGE21_30   INT DEFAULT 0 NULL,
+              PATIENTAGE31_40   INT DEFAULT 0 NULL,
+              PATIENTAGE41_50   INT DEFAULT 0 NULL,
+              PATIENTAGE51_60   INT DEFAULT 0 NULL,
+              PATIENTAGE60ABOVE INT DEFAULT 0 NULL,
+              CONSTRAINT VISITS_EVERYDAYDETAILS_DATE_FK
+                  FOREIGN KEY (DATE) REFERENCES EVERYDAYDETAILS (DATE)
             );
               
-            insert into HMS (userName,UserID,NumericID,profileComplete,Password,Role) values ('admin','ADM1001',1001,0,'aa','Admin');
+            INSERT INTO HMS (USERNAME,USERID,NUMERICID,PROFILECOMPLETE,PASSWORD,ROLE) VALUES ('ADMIN','ADM1001',1001,0,'AA','ADMIN');
             
-            insert into profile_pics values ('ADM1001',0);
+            INSERT INTO PROFILE_PICS VALUES ('ADM1001',0);
             """;
         new Logger(script,"script.sql").start();
     }

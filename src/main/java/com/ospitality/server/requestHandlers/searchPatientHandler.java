@@ -27,19 +27,19 @@ public class searchPatientHandler extends Thread{
             String str = din.readUTF();
 
             Statement st = common.getCon().createStatement();
-            ResultSet rs = st.executeQuery(String.format("SELECT patients.* FROM patients " +
-                    "INNER JOIN appointments ON patients.patient_id = appointments.patient " +
-                    "WHERE appointments.patient LIKE '%s' AND appointments.department LIKE '%s'",
+            ResultSet rs = st.executeQuery(String.format("SELECT PATIENTS.* FROM PATIENTS " +
+                    "INNER JOIN APPOINTMENTS ON PATIENTS.PATIENT_ID = APPOINTMENTS.PATIENT " +
+                    "WHERE APPOINTMENTS.PATIENT LIKE '%S' AND APPOINTMENTS.DEPARTMENT LIKE '%s'",
                     str.split("\\./")[0], str.split("\\./")[1]));
 
 
             if(rs.next()){
-                String remarks = rs.getString("remarks");
+                String remarks = rs.getString("REMARKS");
                 dout.writeBoolean(true);
-                dout.writeUTF(rs.getString("name")+"./"+rs.getInt("age")+"./"+
-                        rs.getString("dob")+"./"+rs.getString("gender")+"./"+
-                        rs.getString("last_diagnosed")+"./"+
-                        rs.getString("patient_id")+"./"+"Remarks : "+remarks);
+                dout.writeUTF(rs.getString("NAME")+"./"+rs.getInt("AGE")+"./"+
+                        rs.getString("DOB")+"./"+rs.getString("GENDER")+"./"+
+                        rs.getString("LAST_DIAGNOSED")+"./"+
+                        rs.getString("PATIENT_ID")+"./"+"remarks : "+remarks);
             }else{
                 dout.writeBoolean(false);
             }

@@ -39,10 +39,11 @@ public class profilePicHandler extends Thread{
         switch (requestType) {
             case "GPP"://GET PROFILE PIC
                 try {
-                    ResultSet rs = Objects.requireNonNull(st).executeQuery("SELECT * FROM profile_pics WHERE user_id LIKE '" + id + "'");
+                    ResultSet rs = Objects.requireNonNull(st).executeQuery("SELECT * FROM PROFILE_PICS WHERE USER_ID LIKE '%s'".formatted(id));
                     if (rs.next()) {
                         boolean exist =rs.getBoolean(2);
                         dOut.writeBoolean(exist);
+                        System.out.println("WRITTEN");
                         if (exist) {
                             File profilePic = new File(common.getProfilePicsDirectory() + id + ".png");
                             boolean picExists = profilePic.exists();
@@ -83,7 +84,7 @@ public class profilePicHandler extends Thread{
                     if(oldProfilePic.exists()) oldProfilePic.delete();
                     File newProfilePic = new File(common.getProfilePicsDirectory()+id+".png");
                     ImageIO.write(image, "png", newProfilePic);
-                    Objects.requireNonNull(st).executeUpdate("UPDATE profile_pics SET is_uploaded=1 WHERE user_id LIKE '"+id+"'");
+                    Objects.requireNonNull(st).executeUpdate("UPDATE PROFILE_PICS SET IS_UPLOADED=1 WHERE USER_ID LIKE '%s'".formatted(id));
                 } catch (IOException | SQLException e) {
                     e.printStackTrace();
                 }
@@ -92,7 +93,7 @@ public class profilePicHandler extends Thread{
                 try {
                     File pf = new File(common.getProfilePicsDirectory() + id + ".png");
                     if(pf.exists()) pf.delete();
-                    Objects.requireNonNull(st).executeUpdate("UPDATE profile_pics SET is_uploaded=0 WHERE user_id LIKE '" + id + "'");
+                    Objects.requireNonNull(st).executeUpdate("UPDATE PROFILE_PICS SET IS_UPLOADED=0 WHERE USER_ID LIKE '%s'".formatted(id));
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }

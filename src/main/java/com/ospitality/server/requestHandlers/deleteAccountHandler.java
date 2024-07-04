@@ -27,8 +27,8 @@ public class deleteAccountHandler extends Thread{
             String[] data = din.readUTF().split("\\./");
 
             try (Statement st = common.getCon().createStatement()) {
-                st.executeUpdate(String.format("UPDATE profile_pics SET is_uploaded=0 WHERE user_id LIKE '%s'", data[0]));
-                st.executeUpdate("INSERT INTO suspended_staff VALUES ('" + data[0] + "','"+data[1]+"',CURDATE())");
+                st.executeUpdate(String.format("UPDATE PROFILE_PICS SET IS_UPLOADED=0 WHERE USER_ID LIKE '%s'", data[0]));
+                st.executeUpdate("INSERT INTO SUSPENDED_STAFF VALUES ('" + data[0] + "','"+data[1]+"',CURDATE())");
                 dout.writeBoolean(true);
             } catch (SQLException e) {
                 dout.writeBoolean(false);

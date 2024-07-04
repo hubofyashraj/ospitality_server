@@ -38,7 +38,7 @@ public class authHandler extends Thread{
 
             try {
                 Statement st = common.getCon().createStatement();
-                ResultSet rs = st.executeQuery("SELECT * FROM HMS WHERE UserID LIKE '"+id+"'");
+                ResultSet rs = st.executeQuery("SELECT * FROM HMS WHERE USERID LIKE '"+id+"'");
 
                 if(rs.next()){
                     if(rs.getString("PassWord").equals(pass)){
@@ -60,7 +60,7 @@ public class authHandler extends Thread{
                 }
 
                 if(access){
-                    rs = st.executeQuery("SELECT * FROM suspended_staff WHERE ID LIKE '"+id+"'");
+                    rs = st.executeQuery("SELECT * FROM SUSPENDED_STAFF WHERE ID LIKE '"+id+"'");
                     if(rs.next()){
                         access=false;
                         log="\n\nClient Address : "+socket.getRemoteSocketAddress()+"\tUser : "+common.checkHash(socket.getRemoteSocketAddress())+"\tLogin Request Declined\n\tReason : Account Suspended \t DUE TO : "+rs.getString(2);

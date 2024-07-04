@@ -26,13 +26,13 @@ public class completeProfileHandler extends Thread{
             String str = din.readUTF();
             String[] arr = str.split("\\./");
 
-            String query = String.format("UPDATE HMS SET profileComplete=1, gender='%s',Designation='%s'," +
-                            "mobileNumber=%s,workEmail='%s',Address='%s' WHERE UserID='%s'"
-                    , arr[0], arr[1], arr[2], arr[3], arr[4], arr[5]);
+            String query = String.format("UPDATE HMS SET PROFILECOMPLETE=1, GENDER='%s',DESIGNATION='%s'," +
+                            "MOBILENUMBER=%s,WORKEMAIL='%s',ADDRESS='%s' WHERE USERID='%s'"
+                    , arr[0], arr[1].toUpperCase(), arr[2], arr[3], arr[4], arr[5]);
 
             if(arr[5].startsWith("DOC")){
-                query=String.format("UPDATE HMS SET profileComplete=1, gender='%s'," +
-                                "mobileNumber=%s,workEmail='%s',Address='%s' WHERE UserID='%s'"
+                query=String.format("UPDATE HMS SET PROFILECOMPLETE=1, GENDER='%s'," +
+                                "MOBILENUMBER=%s,WORKEMAIL='%s',ADDRESS='%s' WHERE USERID='%s'"
                         , arr[0], arr[2], arr[3], arr[4], arr[5]);
             }
 

@@ -27,7 +27,7 @@ public class getUserDetailsHandler extends Thread{
             String userId = din.readUTF();
 
             Statement st = common.getCon().createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM HMS WHERE UserID LIKE '"+userId+"'");
+            ResultSet rs = st.executeQuery("SELECT * FROM HMS WHERE USERID LIKE '%s'".formatted(userId));
 
             boolean flag = rs.next();
             dout.writeBoolean(flag);
@@ -38,7 +38,7 @@ public class getUserDetailsHandler extends Thread{
                         rs.getString("gender")+"./"+rs.getString("workEmail")+"./"+
                         rs.getString("mobileNumber")+"./"+rs.getString("Address");
 
-                rs = st.executeQuery("SELECT suspension_reason,suspension_date FROM suspended_staff WHERE ID LIKE '"+userId+"'");
+                rs = st.executeQuery("SELECT SUSPENSION_REASON,SUSPENSION_DATE FROM SUSPENDED_STAFF WHERE ID LIKE '%s'".formatted(userId));
                 if(rs.next()){
                     test = test+"./B./"+rs.getString(1)+"./"+rs.getString(2);
                 }else{

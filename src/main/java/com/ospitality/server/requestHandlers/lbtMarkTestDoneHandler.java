@@ -24,7 +24,7 @@ public class lbtMarkTestDoneHandler extends Thread{
 
             Statement st = common.getCon().createStatement();
 
-            st.executeUpdate("UPDATE labtests SET testDoneOn=(SELECT CURDATE()) WHERE patient LIKE '"+arr[0]+"' AND testName LIKE '"+arr[1]+"' AND assignmentDate LIKE '"+arr[2]+"'");
+            st.executeUpdate("UPDATE LABTESTS SET TESTDONEON=(SELECT CURDATE()) WHERE PATIENT LIKE '"+arr[0]+"' AND TESTNAME LIKE '"+arr[1]+"' AND ASSIGNMENTDATE LIKE '"+arr[2]+"'");
 
         } catch (IOException | SQLException e) {
             e.printStackTrace();

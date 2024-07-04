@@ -29,10 +29,10 @@ public class patientAndScansInitHandler extends Thread{
             
             Statement st = common.getCon().createStatement();
             Statement st1 = common.getCon().createStatement();
-            ResultSet rs1 = st1.executeQuery("SELECT patients.name, patients.patient_id FROM patients INNER JOIN appointments ON appointments.patient=patients.patient_id WHERE appointments.date LIKE (SELECT CURDATE()) AND appointments.department LIKE '"+expertise+"' AND appointments.visited=0");
+            ResultSet rs1 = st1.executeQuery("SELECT PATIENTS.NAME, PATIENTS.PATIENT_ID FROM PATIENTS INNER JOIN APPOINTMENTS ON APPOINTMENTS.PATIENT=PATIENTS.PATIENT_ID WHERE APPOINTMENTS.DATE LIKE (SELECT CURDATE()) AND APPOINTMENTS.DEPARTMENT LIKE '"+expertise+"' AND APPOINTMENTS.VISITED=0");
 
             boolean t1=rs1.next();
-            ResultSet rs = st.executeQuery("SELECT DISTINCT patients.name, patients.patient_id FROM patients INNER JOIN visited ON visited.patient=patients.patient_id WHERE visited.date LIKE (SELECT CURDATE()) AND visited.department LIKE '" + expertise + "'");
+            ResultSet rs = st.executeQuery("SELECT DISTINCT PATIENTS.NAME, PATIENTS.PATIENT_ID FROM PATIENTS INNER JOIN VISITED ON VISITED.PATIENT=PATIENTS.PATIENT_ID WHERE VISITED.DATE LIKE (SELECT CURDATE()) AND VISITED.DEPARTMENT LIKE '" + expertise + "'");
             boolean t = rs.next();
             dataOutputStream.writeBoolean(t||t1);
             dataOutputStream.flush();
